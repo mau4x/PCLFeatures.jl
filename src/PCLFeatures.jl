@@ -2,7 +2,10 @@ module PCLFeatures
 
 export AbstractFeature, AbstractNormal, AbstractSHOT,
     setSearchSurface, getSearchSurface, setSearchMethod, getSearchMethod,
-    getSearchParameter, setKSearch, getKSearch, setRadiusSearch, getRadiusSearch
+    getSearchParameter, setKSearch, getKSearch, setRadiusSearch, getRadiusSearch,
+    setInputNormals, compute,
+    NormalEstimation, NormalEstimationOMP, SHOTEstimation, SHOTEstimationOMP,
+    BOARDLocalReferenceFrameEstimation, setFindHoles
 
 using LibPCL
 using PCLCommon
@@ -23,39 +26,26 @@ cxx"""
 #include <pcl/features/board.h>
 """
 
-import PCLCommon: setInputCloud
-
 abstract AbstractFeature <: PCLBase
 abstract AbstractNormal <: AbstractFeature
 abstract AbstractSHOT <: AbstractFeature
 
 ### Abstract methods for Feature ###
 
-function setSearchSurface(f::AbstractFeature, cloud)
+setSearchSurface(f::AbstractFeature, cloud) =
     icxx"$(f.handle)->setSearchSurface($(cloud.handle));"
-end
-function getSearchSurface(f::AbstractFeature)
-    icxx"$(f.handle)->getSearchSurface();"
-end
-function setSearchMethod(f::AbstractFeature, tree)
+getSearchSurface(f::AbstractFeature) = icxx"$(f.handle)->getSearchSurface();"
+setSearchMethod(f::AbstractFeature, tree) =
     icxx"$(f.handle)->setSearchMethod($(tree.handle));"
-end
-function getSearchMethod(f::AbstractFeature)
-    icxx"$(f.handle)->getSearchMethod();"
-end
-function getSearchParameter(f::AbstractFeature)
-    icxx"$(f.handle)->getSearchParameter();"
-end
-function setKSearch(f::AbstractFeature, k::Integer)
-    icxx"$(f.handle)->setKSearch($k);"
-end
-function getKSearch(f::AbstractFeature)
-    icxx"$(f.handle)->getKSearch();"
-end
+getSearchMethod(f::AbstractFeature) = icxx"$(f.handle)->getSearchMethod();"
+getSearchParameter(f::AbstractFeature) = icxx"$(f.handle)->getSearchParameter();"
+setKSearch(f::AbstractFeature, k::Integer) =  icxx"$(f.handle)->setKSearch($k);"
+getKSearch(f::AbstractFeature) = icxx"$(f.handle)->getKSearch();"
 setRadiusSearch(f::AbstractFeature, rad::AbstractFloat) =
     icxx"$(f.handle)->setRadiusSearch($rad);"
 
-# TODO
+# TODO: this is actally not a method for pcl::Feature, should put into another
+# place
 setInputNormals(n::AbstractFeature, normals::PointCloud) =
     icxx"$(n.handle)->setInputNormals($(normals.handle));"
 
