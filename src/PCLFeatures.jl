@@ -11,7 +11,7 @@ using LibPCL
 using PCLCommon
 using Cxx
 
-libpcl_features = LibPCL.find_library_e("libpcl_features")
+const libpcl_features = LibPCL.find_library_e("libpcl_features")
 try
     Libdl.dlopen(libpcl_features, Libdl.RTLD_GLOBAL)
 catch e
