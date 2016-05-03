@@ -63,7 +63,7 @@ for (name, type_params, supername) in [
     ]
     cxxname = "pcl::$name"
     name_with_params = Expr(:curly, name, type_params...)
-    valname_with_params = Expr(:curly, symbol(name, "Val"), type_params...)
+    valname_with_params = Expr(:curly, Symbol(name, "Val"), type_params...)
     @eval begin
         @defpcltype $name_with_params <: $supername $cxxname
         @defptrconstructor $name_with_params() $cxxname
