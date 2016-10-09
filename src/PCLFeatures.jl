@@ -1,3 +1,13 @@
+"""
+The **pcl_features** library contains data structures and mechanisms for 3D
+feature estimation from point cloud data
+
+http://docs.pointclouds.org/trunk/group__features.html
+
+## Exports
+
+$(EXPORTS)
+"""
 module PCLFeatures
 
 export AbstractFeature, AbstractNormal, AbstractSHOT,
@@ -7,6 +17,7 @@ export AbstractFeature, AbstractNormal, AbstractSHOT,
     NormalEstimation, NormalEstimationOMP, SHOTEstimation, SHOTEstimationOMP,
     BOARDLocalReferenceFrameEstimation, setFindHoles
 
+using DocStringExtensions
 using LibPCL
 using PCLCommon
 using Cxx
