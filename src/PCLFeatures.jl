@@ -37,9 +37,9 @@ cxx"""
 #include <pcl/features/board.h>
 """
 
-abstract AbstractFeature <: PCLBase
-abstract AbstractNormal <: AbstractFeature
-abstract AbstractSHOT <: AbstractFeature
+abstract type AbstractFeature <: PCLBase end
+abstract type AbstractNormal <: AbstractFeature end
+abstract type AbstractSHOT <: AbstractFeature end
 
 ### Abstract methods for Feature ###
 
